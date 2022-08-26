@@ -40,6 +40,7 @@ spec:
       containers:
       - name: sriov-cni
         image: {{.SRIOVCNIImage}}
+        pullPolicy: IfNotPresent
         securityContext:
           privileged: true
         resources:
@@ -51,6 +52,7 @@ spec:
           mountPath: /host/opt/cni/bin
       - name: sriov-infiniband-cni
         image: {{.SRIOVInfiniBandCNIImage}}
+        pullPolicy: IfNotPresent
         securityContext:
           privileged: true
         resources:
@@ -62,6 +64,7 @@ spec:
           mountPath: /host/opt/cni/bin
       - name: sriov-network-config-daemon
         image: {{.Image}}
+        pullPolicy: IfNotPresent
         command:
           - sriov-network-config-daemon
         imagePullPolicy: IfNotPresent
