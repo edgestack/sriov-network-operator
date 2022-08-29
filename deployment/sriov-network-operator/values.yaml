@@ -28,12 +28,13 @@ operator:
 
 # Image URIs for sriov-network-operator components
 images:
-  operator: ghcr.io/k8snetworkplumbingwg/sriov-network-operator
-  sriovConfigDaemon: ghcr.io/k8snetworkplumbingwg/sriov-network-operator-config-daemon
+  operator: registry.gitlab.com/sonaproject/sriov-network-operator
+  sriovConfigDaemon: registry.gitlab.com/sonaproject/sriov-network-config-daemon
   sriovCni: ghcr.io/k8snetworkplumbingwg/sriov-cni
   ibSriovCni: ghcr.io/k8snetworkplumbingwg/ib-sriov-cni
   sriovDevicePlugin: ghcr.io/k8snetworkplumbingwg/sriov-network-device-plugin
   resourcesInjector: ghcr.io/k8snetworkplumbingwg/network-resources-injector
-  webhook: ghcr.io/k8snetworkplumbingwg/sriov-network-operator-webhook
+  webhook: registry.gitlab.com/sonaproject/sriov-network-webhook
 
 imagePullSecrets: []
+imagePullPolicy: IfNotPresent
