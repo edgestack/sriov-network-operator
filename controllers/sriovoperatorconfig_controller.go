@@ -174,6 +174,7 @@ func (r *SriovOperatorConfigReconciler) syncConfigDaemonSet(dc *sriovnetworkv1.S
 	data.Data["ClusterType"] = constants.ClusterType
 	data.Data["DevMode"] = os.Getenv("DEV_MODE")
 	data.Data["ImagePullSecrets"] = GetImagePullSecrets()
+        data.Data["ImagePullPolicy"] = os.Getenv("IMAGE_PULL_POLICY")
 	envCniBinPath := os.Getenv("SRIOV_CNI_BIN_PATH")
 	if envCniBinPath == "" {
 		data.Data["CNIBinPath"] = "/var/lib/cni/bin"
@@ -228,6 +229,7 @@ func (r *SriovOperatorConfigReconciler) syncWebhookObjs(dc *sriovnetworkv1.Sriov
 		data.Data["CaBundle"] = os.Getenv("WEBHOOK_CA_BUNDLE")
 		data.Data["DevMode"] = os.Getenv("DEV_MODE")
 		data.Data["ImagePullSecrets"] = GetImagePullSecrets()
+                data.Data["ImagePullPolicy"] = os.Getenv("IMAGE_PULL_POLICY")
 		objs, err := render.RenderDir(path, &data)
 		if err != nil {
 			logger.Error(err, "Fail to render webhook manifests")
