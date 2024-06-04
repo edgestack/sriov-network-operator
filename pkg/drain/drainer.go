@@ -141,6 +141,7 @@ func createDrainHelper(kubeClient kubernetes.Interface, ctx context.Context, ful
 		Force:               true,
 		IgnoreAllDaemonSets: true,
 		DeleteEmptyDirData:  true,
+		DisableEviction:     true,
 		GracePeriodSeconds:  -1,
 		Timeout:             90 * time.Second,
 		OnPodDeletedOrEvicted: func(pod *corev1.Pod, usingEviction bool) {
