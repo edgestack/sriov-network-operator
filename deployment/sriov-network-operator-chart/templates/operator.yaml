@@ -42,7 +42,7 @@ spec:
         - name: {{ include "sriov-network-operator.fullname" . }}
           image: {{ .Values.images.operator }}
           {{- if .Values.imagePullPolicy }}
-          imagePullPolicy: {{ .Values.images.operator }}
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
           {{- end }}
           command:
             - sriov-network-operator
