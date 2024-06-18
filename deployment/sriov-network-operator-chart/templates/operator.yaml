@@ -41,6 +41,9 @@ spec:
       containers:
         - name: {{ include "sriov-network-operator.fullname" . }}
           image: {{ .Values.images.operator }}
+          {{- if .Values.imagePullPolicy }}
+          imagePullPolicy: {{ .Values.images.operator }}
+          {{- end }}
           command:
             - sriov-network-operator
           resources:
