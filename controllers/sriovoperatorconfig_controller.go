@@ -172,6 +172,7 @@ func (r *SriovOperatorConfigReconciler) syncConfigDaemonSet(ctx context.Context,
 	data.Data["ClusterType"] = vars.ClusterType
 	data.Data["DevMode"] = os.Getenv("DEV_MODE")
 	data.Data["ImagePullSecrets"] = GetImagePullSecrets()
+	data.Data["ImagePullPolicy"] = os.Getenv("IMAGE_PULL_POLICY")
 	if dc.Spec.ConfigurationMode == sriovnetworkv1.SystemdConfigurationMode {
 		data.Data["UsedSystemdMode"] = true
 	} else {
@@ -238,6 +239,7 @@ func (r *SriovOperatorConfigReconciler) syncWebhookObjs(ctx context.Context, dc 
 		data.Data["ClusterType"] = vars.ClusterType
 		data.Data["DevMode"] = os.Getenv("DEV_MODE")
 		data.Data["ImagePullSecrets"] = GetImagePullSecrets()
+		data.Data["ImagePullPolicy"] = os.Getenv("IMAGE_PULL_POLICY")
 		data.Data["CertManagerEnabled"] = strings.ToLower(os.Getenv("ADMISSION_CONTROLLERS_CERTIFICATES_CERT_MANAGER_ENABLED")) == trueString
 		data.Data["OperatorWebhookSecretName"] = os.Getenv("ADMISSION_CONTROLLERS_CERTIFICATES_OPERATOR_SECRET_NAME")
 		data.Data["OperatorWebhookCA"] = os.Getenv("ADMISSION_CONTROLLERS_CERTIFICATES_OPERATOR_CA_CRT")
