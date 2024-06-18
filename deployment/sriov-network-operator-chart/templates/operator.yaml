@@ -72,6 +72,8 @@ spec:
               value: {{ .Values.operator.resourcePrefix }}
             - name: IMAGE_PULL_SECRETS
               value: {{ join "," .Values.imagePullSecrets }}
+            - name: IMAGE_PULL_POLICY
+              value: {{ .Values.imagePullPolicy }}
             - name: NAMESPACE
               valueFrom:
                 fieldRef:

@@ -42,6 +42,9 @@ spec:
       initContainers:
         - name: sriov-cni
           image: {{.SRIOVCNIImage}}
+          {{- if .ImagePullPolicy }}
+          imagePullPolicy: {{ .ImagePullPolicy }}
+          {{- end }}
           args: ["--no-sleep"]
           securityContext:
             privileged: true
@@ -57,6 +60,9 @@ spec:
               readOnly: true
         - name: sriov-infiniband-cni
           image: {{.SRIOVInfiniBandCNIImage}}
+          {{- if .ImagePullPolicy }}
+          imagePullPolicy: {{ .ImagePullPolicy }}
+          {{- end }}
           args: ["--no-sleep"]
           securityContext:
             privileged: true
@@ -73,6 +79,9 @@ spec:
         {{- if .OVSCNIImage }}
         - name: ovs-cni
           image: {{.OVSCNIImage}}
+          {{- if .ImagePullPolicy }}
+          imagePullPolicy: {{ .ImagePullPolicy }}
+          {{- end }}
           command: ["/bin/sh","-c"]
           args:
             - >
@@ -95,6 +104,9 @@ spec:
       {{- if .UsedSystemdMode}}
         - name: sriov-service-copy
           image: {{.Image}}
+          {{- if .ImagePullPolicy }}
+          imagePullPolicy: {{ .ImagePullPolicy }}
+          {{- end }}
           command:
             - /bin/bash
             - -c
@@ -112,6 +124,9 @@ spec:
       containers:
       - name: sriov-network-config-daemon
         image: {{.Image}}
+        {{- if .ImagePullPolicy }}
+        imagePullPolicy: {{ .ImagePullPolicy }}
+        {{- end }}
         command:
           - sriov-network-config-daemon
         securityContext:

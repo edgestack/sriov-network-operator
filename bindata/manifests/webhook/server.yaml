@@ -65,6 +65,9 @@ spec:
       containers:
       - name: webhook-server
         image: {{.NetworkResourcesInjectorImage}}
+        {{- if .ImagePullPolicy }}
+        imagePullPolicy: {{ .ImagePullPolicy }}
+        {{- end }}
         command:
         - webhook
         args:

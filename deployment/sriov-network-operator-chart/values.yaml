@@ -104,3 +104,4 @@ images:
   webhook: ghcr.io/k8snetworkplumbingwg/sriov-network-operator-webhook
 
 imagePullSecrets: []
+imagePullPolicy: IfNotPresent
