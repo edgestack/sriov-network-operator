@@ -185,6 +185,7 @@ func syncPluginDaemonObjs(ctx context.Context,
 	data.Data["ReleaseVersion"] = os.Getenv("RELEASEVERSION")
 	data.Data["ResourcePrefix"] = vars.ResourcePrefix
 	data.Data["ImagePullSecrets"] = GetImagePullSecrets()
+	data.Data["ImagePullPolicy"] = os.Getenv("IMAGE_PULL_POLICY")
 	data.Data["NodeSelectorField"] = GetDefaultNodeSelector()
 	data.Data["UseCDI"] = dc.Spec.UseCDI
 	objs, err := renderDsForCR(constants.PluginPath, &data)
