@@ -95,11 +95,31 @@ func (u *udev) RemovePersistPFNameUdevRule(pfPciAddress string) error {
 	return u.removeUdevRule(pfPciAddress, "10-pf-name")
 }
 
+func getPhysInterfaceIndex(pfName string) (string, error) {
+	devicePortNameFile := filepath.Join(vars.FilesystemRoot, consts.SysClassNet, pfName, "ifindex")
+	physInterfaceIndex, err := os.ReadFile(devicePortNameFile)
+	if err != nil {
+		return "", err
+	}
+	if physInterfaceIndex != nil {
+		return strings.TrimSpace(string(physInterfaceIndex)), nil
+	}
+	return "", nil
+}
+
 // AddVfRepresentorUdevRule adds udev rule that renames VF representors on the concrete PF
 func (u *udev) AddVfRepresentorUdevRule(pfPciAddress, pfName, pfSwitchID, pfSwitchPort string) error {
+
+	pfIdx, err := getPhysInterfaceIndex(pfName)
+	if err != nil {
+		log.Log.Error(err, "AddVfRepresentorUdevRule(): failed to get physical interface index",
+			"device", pfPciAddress, "ifname", pfName)
+		return err
+	}
+
 	log.Log.V(2).Info("AddVfRepresentorUdevRule()",
 		"device", pfPciAddress, "name", pfName, "switch", pfSwitchID, "port", pfSwitchPort)
-	udevRuleContent := fmt.Sprintf(consts.SwitchdevUdevRule, pfSwitchID, strings.TrimPrefix(pfSwitchPort, "p"), pfName)
+	udevRuleContent := fmt.Sprintf(consts.SwitchdevUdevRule, pfSwitchID, strings.TrimPrefix(pfSwitchPort, "p"), pfIdx)
 	return u.addUdevRule(pfPciAddress, "20-switchdev", udevRuleContent)
 }
 

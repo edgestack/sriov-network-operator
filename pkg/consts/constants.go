@@ -117,7 +117,7 @@ const (
 		`ATTRS{phys_switch_id}=="%s", ` +
 		`ATTR{phys_port_name}=="pf%svf*", ` +
 		`IMPORT{program}="/etc/udev/switchdev-vf-link-name.sh $attr{phys_port_name}", ` +
-		`NAME="%s_$env{NUMBER}"`
+		`NAME="veth_%s_$env{NUMBER}"`
 
 	KernelArgPciRealloc = "pci=realloc"
 	KernelArgIntelIommu = "intel_iommu=on"
